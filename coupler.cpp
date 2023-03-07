@@ -2,6 +2,7 @@
 
 #include <chrono>
 #include <thread>
+#include <iostream>
 #include <fstream>
 
 namespace internal
@@ -272,10 +273,19 @@ void waitForFileExistence( MPI_Comm comm, const char * fileName )
 
   if( rank == 0 )
   {
-    std::chrono::milliseconds const sleepTime( 1 );
+    std::chrono::milliseconds const sleepTime( 100 );
+    int waiting = 0;
+    long long int waitSecs = 0;
     while( !std::ifstream( fileName ))
     {
       std::this_thread::sleep_for( sleepTime );
+      if( waiting > 1000 / sleepTime.count() )
+      {
+        waiting = 0;
+        waitSecs++;
+        std::cout << waitSecs << std::endl;
+      }
+      waiting++;
     }
   }
 
