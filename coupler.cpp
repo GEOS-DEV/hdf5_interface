@@ -511,6 +511,7 @@ void readBoundaryFile( MPI_Comm comm,
   std::cout << "Waiting for file unlock..." << std::endl;
   std::chrono::milliseconds const sleepTime( 100 );
   int waiting = 0;
+  long long int waitSecs = 0;
   while( H5Fis_accessible( filename, file_access ) != 0 )
   {
     std::this_thread::sleep_for( sleepTime );
