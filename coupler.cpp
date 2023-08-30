@@ -508,6 +508,22 @@ void readBoundaryFile( MPI_Comm comm,
     H5Pset_fapl_mpio( file_access, comm, MPI_INFO_NULL );
   }
 
+  std::cout << "Waiting for file unlock..." << std::endl;
+  std::chrono::milliseconds const sleepTime( 100 );
+  int waiting = 0;
+  while( H5Fis_accessible( filename, file_access ) != 0 )
+  {
+    std::this_thread::sleep_for( sleepTime );
+    if ( waiting >= 10 )
+    {
+      waitSecs++;
+      std::cout << waitSecs << std::endl;
+      waiting = 0;
+    }
+    waiting++;
+  }
+
+  
   hid_t m_fileID = H5Fopen( fileName, H5F_ACC_RDONLY, file_access );
   H5Pclose( file_access );
   hid_t root = H5Gopen( m_fileID, "/", H5P_DEFAULT );
