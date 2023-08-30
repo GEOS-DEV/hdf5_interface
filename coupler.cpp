@@ -512,7 +512,7 @@ void readBoundaryFile( MPI_Comm comm,
   std::chrono::milliseconds const sleepTime( 100 );
   int waiting = 0;
   long long int waitSecs = 0;
-  while( H5Fis_accessible( fileName, file_access ) != 0 )
+  while( H5Fis_accessible( fileName, file_access ) > 0 )
   {
     std::this_thread::sleep_for( sleepTime );
     if ( waiting >= 10 )
