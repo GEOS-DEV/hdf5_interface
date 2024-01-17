@@ -20,4 +20,3 @@ blt_add_library( NAME                  hdf5_interface
                
 target_include_directories( hdf5_interface PUBLIC ${CMAKE_SOURCE_DIR}/coreComponents)
 
-geosx_add_code_checks(PREFIX hdf5_interface )
