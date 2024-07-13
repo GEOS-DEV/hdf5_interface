@@ -10,7 +10,7 @@ set(hdf5_interface_headers
 set(hdf5_interface_sources
   coupler.cpp )
 
-set( dependencyList hdf5 mpi )
+set( dependencyList HDF5::HDF5 mpi )
 
 blt_add_library( NAME                  hdf5_interface
                  SOURCES               ${hdf5_interface_sources}
