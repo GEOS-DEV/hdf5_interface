@@ -20,3 +20,4 @@ blt_add_library( NAME                  hdf5_interface
                
 target_include_directories( hdf5_interface PUBLIC ${CMAKE_SOURCE_DIR}/coreComponents)
 
+install( TARGETS hdf5_interface LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib )
